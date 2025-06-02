@@ -1,4 +1,4 @@
-// db/connection.js
+
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
@@ -11,9 +11,9 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
   if (err) {
-    console.error('❌ Error connecting to MySQL:', err.message);
+    console.error(' Error connecting to MySQL:', err.message);
   } else {
-    console.log('✅ MySQL connection established');
+    console.log(' MySQL connection established');
   }
 });
 

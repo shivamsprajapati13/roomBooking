@@ -12,7 +12,7 @@ async function bookRoom(req, res) {
     let teamId = null;
     let teamSize = 1;
 
-    // For conference, validate team size
+   
     if (type === 'conference') {
       teamSize = await getTeamSize(userId);
       if (teamSize < 3) {
@@ -20,21 +20,17 @@ async function bookRoom(req, res) {
       }
     }
 
-    // Try finding available room
     const room = await findAvailableRoom(type, slot, teamSize);
     if (!room) {
       return res.status(400).json({ error: 'No available room for the selected slot and type.' });
     }
-
-    // For shared desks, check how many already seated
-    if (type === 'shared') {
+ if (type === 'shared') {
       const currentUsers = await getSharedDeskUsage(room.id, slot);
       if (currentUsers >= 4) {
         return res.status(400).json({ error: 'No available room for the selected slot and type.' });
       }
     }
 
-    // Create booking
     const bookingId = await createBooking({
       userId,
       teamId,
