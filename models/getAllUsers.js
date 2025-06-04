@@ -1,13 +1,12 @@
-
 const { connection } = require('../db/connection');
 
-function getAllUsers(callback) {
+function getAllUsers(req,res) {
   const sql = 'SELECT * FROM users';
   connection.query(sql, (err, results) => {
     if (err) {
-      return callback(err);
+      return res.json(err);
     }
-    callback(null, results);
+    res.json(results);
   });
 }
 

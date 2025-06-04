@@ -1,4 +1,4 @@
-const { createBooking, findAvailableRoom, getTeamSize, getSharedDeskUsage } = require('../models/bookingModel');
+const { createBooking, findAvailableRoom, getTeamSize, getSharedDeskUsage } = require('./bookingModel');
 const { connection } = require('../db/connection'); 
 
 async function bookRoom(req, res) {
@@ -46,15 +46,7 @@ async function bookRoom(req, res) {
   }
 }
 
-function cancelBooking(bookingId) {
-  return new Promise((resolve, reject) => {
-    const sql = 'DELETE FROM bookings WHERE id = ?';
-    connection.query(sql, [bookingId], (err, results) => {
-      if (err) return reject(err);
-      resolve(results.affectedRows);
-    });
-  });
-}
+
 
 
 async function getAllRoomBooking(req, res) {
@@ -121,4 +113,4 @@ async function getAvailableRooms(req, res) {
   }
 }
 
-module.exports = { bookRoom,cancelBooking,getAllRoomBooking,getAvailableRooms };
+module.exports = { bookRoom,getAllRoomBooking,getAvailableRooms };
